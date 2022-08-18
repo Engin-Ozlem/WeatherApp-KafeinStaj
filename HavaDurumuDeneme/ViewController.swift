@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  HavaDurumuDeneme
 //
-//  Created by macbookair on 8.08.2022.
+//  Created by Engin Özlem on 8.08.2022.
 //
 
 import UIKit
@@ -10,13 +10,14 @@ import UIKit
 class ViewController: UIViewController , UITableViewDataSource , UITableViewDelegate{
     
     
-    @IBOutlet weak var gelenSehirText: UITextField!
+    @IBOutlet weak var gelenSehirText: UITextField! //Baglama islemleri
     @IBOutlet weak var btn: UIButton!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var gecmis: UIButton!
     
+
     
-    var gelenSehirVerileri = [String]()
+    var gelenSehirVerileri = [String]() //gelen sehir verilerini bir dizide tutuyoruz
     
     
     override func viewDidLoad() {
@@ -37,7 +38,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : UITableViewCell = UITableViewCell()
-        cell.textLabel?.text = gelenSehirVerileri[indexPath.row]
+        cell.textLabel?.text = gelenSehirVerileri[indexPath.row] //verileri indeksine göre alt alta sıralıyoruz
         return cell
     }
     
@@ -49,13 +50,14 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     }
     
     
-    @IBAction func gecmisBtn(_ sender: UIButton) {
+    @IBAction func gecmisBtn(_ sender: UIButton) { // Geçmiş butonunu gizleyebiliyoruz
         table.isHidden = true
     }
     
     //verileri kaydetme
     func saveData() {
-        UserDefaults.standard.set(gelenSehirVerileri, forKey: "veriler")
+        UserDefaults.standard.set(gelenSehirVerileri, forKey: "veriler") //user default yapısıyla aldıgımız verileri
+                                                                         //table viev da listelemek için saklıyoruz
     }
     
     func loadData() {
@@ -68,8 +70,8 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
     
     
     @IBAction func btn(_ sender: UIButton) {
-        table.isHidden = false
-        gecmis.isHidden = false
+        table.isHidden = false //table gizliliği açıldı
+        gecmis.isHidden = false // geçmiş buton gizliliği açıldı
         let sehir = gelenSehirText.text ?? ""
         gelenSehirVerileri.append(String(sehir))
         
@@ -79,7 +81,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         saveData()
         
         
-        if indexPatch.row == 4 {
+        if indexPatch.row == 5 { //Listelenen 5 veriden sonra geçmişi otomatik olarak siliyoruz
             gelenSehirVerileri.removeAll()
             table.reloadData()
             saveData()
@@ -96,7 +98,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
         
         
         
-        if sehir.isEmpty {
+        if sehir.isEmpty { //Alert Yapılarımız
             let alert = UIAlertController(title: "DİKKAT !", message: "Lütfen Sehir Adı giriniz", preferredStyle: .alert)
             
             let iptalBtn = UIAlertAction(title: "İptal", style: .cancel, handler: nil)
@@ -113,7 +115,7 @@ class ViewController: UIViewController , UITableViewDataSource , UITableViewDele
             
             vievController.sehir = sehir
             
-            self.show(vievController, sender: nil)
+            self.show(vievController, sender: nil) // Diğer sayfaya aldığımız veriyi gönderiyoruz
         
                 
             
